@@ -1,4 +1,5 @@
 from redash_client import base as cli
+from redash_client import data_sources as ds
 import os
 
 
@@ -12,8 +13,8 @@ if __name__ == '__main__':
 
     api_client = cli.base_client(redash_query_token, redash_url)
 
-    res = cli.base_client.get(api_client, 'data_sources')
-    print(res.json())
+    ds_client = ds.data_sources(api_client)
+    print(ds_client.get_data_sources())
 
-    res = cli.base_client.get(api_client, 'data_sources/1')
-    print(res.json())
+    ds_client = ds.data_sources(api_client)
+    print(ds_client.get_data_source(1))
