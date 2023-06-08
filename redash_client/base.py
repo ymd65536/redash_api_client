@@ -10,8 +10,8 @@ class base_client:
         self.s = requests.Session()
         self.s.headers.update({"Authorization": f"Key {api_key}"})
 
-    def get(self, uri: str):
-        res = self.s.get(f"{self.host}/api/{uri}")
+    def get(self, uri: str, **kwargs):
+        res = self.s.get(f"{self.host}/api/{uri}", **kwargs)
 
         if res.status_code != 200:
             raise Exception(f"[GET] /api/{uri} ({res.status_code})")
