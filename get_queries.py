@@ -1,8 +1,8 @@
 from redash_client import base as cli
 # from redash_client import data_sources as ds
 from redash_client import query as qu
+from redash_client import io as output
 import os
-
 
 if __name__ == '__main__':
 
@@ -15,12 +15,11 @@ if __name__ == '__main__':
     api_client = cli.base_client(redash_query_token, redash_url)
 
     queies_api = qu.queries(api_client)
-    queries = queies_api.get_queries()
-
-    # for query in queries:
-    #    print(query)
+    queries = queies_api.get_queries(page=1, page_size=150)
 
     results = queries["results"]
-
+    query_info = []
     for result in results:
-        print(result["id"])
+        output.output_sql('sql', result=result)
+        # query_info.append(queies_api.get_query_info(result["id"]))
+    # print(query_info)
